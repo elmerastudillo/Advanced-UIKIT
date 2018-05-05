@@ -45,20 +45,32 @@ class SkylineView : UIView {
         
 //        let endPoint = CGPoint(x: bounds.maxX, y: bounds.midY)
 //        path.addLine(to: endPoint)
-        path.addCurve(to: CGPoint(x: bounds.minX + 60 ,y: bounds.midY), controlPoint1: CGPoint(x: bounds.minX - 100, y: bounds.midY), controlPoint2: CGPoint(x: bounds.minX - 80, y:300))
-        path.move(to: CGPoint(x: bounds.minX + 60 ,y: bounds.midY))
-        path.addCurve(to: CGPoint(x: bounds.maxX / 2 + 40 ,y: bounds.midY + 20), controlPoint1: CGPoint(x: bounds.minX + 80 ,y: bounds.midY + 40), controlPoint2: CGPoint(x: 70, y:bounds.midY + 100))
-//        path.addCurve(to: CGPoint(x: bounds.minX + 300 ,y: bounds.midY), controlPoint1: CGPoint(x: bounds.minX, y: bounds.midY), controlPoint2: CGPoint(x: 70, y:10))
-//        path.addCurve(to: CGPoint(x: bounds.minX + 300 ,y: bounds.midY), controlPoint1: CGPoint(x: bounds.minX, y: bounds.midY), controlPoint2: CGPoint(x: 70, y:10))
-        
-        let circlePath = UIBezierPath(arcCenter: .zero, radius: 50, startAngle: 0, endAngle: CGFloat.pi / 2, clockwise: true)
-    
+        path.addCurve(to: CGPoint(x: bounds.minX + 120 ,y: bounds.midY + 50), controlPoint1: startPoint, controlPoint2: CGPoint(x: bounds.minX - 80, y:bounds.midY - 100))
+        path.move(to: CGPoint(x: bounds.minX + 120 ,y: bounds.midY + 50))
+        path.addCurve(to: CGPoint(x: bounds.maxX / 2 + 40 ,y: bounds.midY + 50), controlPoint1: CGPoint(x: bounds.minX / 2 + 40 ,y: bounds.midY + 5), controlPoint2:  CGPoint(x: bounds.maxX / 2 + 40 ,y: bounds.midY + 80))
+        path.move(to: CGPoint(x: bounds.maxX / 2 + 40 ,y: bounds.midY + 50))
+        path.addCurve(to: CGPoint(x: bounds.maxX ,y: bounds.midY - 10), controlPoint1: CGPoint(x: bounds.maxX / 2 + 40 ,y: bounds.midY + 80), controlPoint2:  CGPoint(x: bounds.maxX ,y: bounds.midY - 240))
+        path.move(to: CGPoint(x: bounds.maxX ,y: bounds.midY + 100))
         
         shape.path = path.cgPath
         shape.lineWidth = 5
         shape.strokeColor = UIColor.blue.cgColor
         
+        let circleShape = CAShapeLayer()
+        let circlePath = UIBezierPath(arcCenter: CGPoint(x: 100,y: 100), radius: CGFloat(50), startAngle: CGFloat(0), endAngle:CGFloat(Double.pi * 2), clockwise: true)
+        circleShape.path = circlePath.cgPath
+        //change the fill color
+        circleShape.fillColor = UIColor.yellow.cgColor
+        //you can change the stroke color
+        circleShape.strokeColor = UIColor.yellow.cgColor
+        //you can change the line width
+        circleShape.lineWidth = 3.0
+        circleShape.frame = CGRect(x: bounds.maxX - 200, y: bounds.minY + 50, width: 100, height: 100)
         
+        let shadowSublayer = createShadowLayer()
+        shadowSublayer.insertSublayer(circleShape, at: 0)
+        
+        layer.addSublayer(shadowSublayer)
         layer.addSublayer(shape)
     }
     
@@ -81,6 +93,16 @@ class SkylineView : UIView {
         shapeLayer.lineWidth = desiredLineWidth
         
         layer.addSublayer(shapeLayer)
+    }
+    
+    func createShadowLayer() -> CALayer {
+        let shadowLayer = CALayer()
+        shadowLayer.shadowColor = UIColor.orange.cgColor
+        shadowLayer.shadowOffset = CGSize.zero
+        shadowLayer.shadowRadius = 30.0
+        shadowLayer.shadowOpacity = 1.0
+        shadowLayer.backgroundColor = UIColor.clear.cgColor
+        return shadowLayer
     }
 }
 
