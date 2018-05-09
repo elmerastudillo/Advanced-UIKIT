@@ -15,7 +15,7 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view, typically from a nib.
 //         self.view = ChessBoard(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        self.view = SaturationView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        self.view = RainbowView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
 
 //        self.view.backgroundColor = UCO
         // First screen Red view
